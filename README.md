@@ -1,0 +1,36 @@
+### I am not proud of this
+This is definitely my Frankenstein's monster
+
+This is still an early prototype and huge structural changes are gonna come. (I have plans)
+
+# Neovibe
+Plugin where you ask AI to change some settings and they do it for you
+
+Ever had a time where you wan't to change something in your config temporarity but don't want to read the docs?
+Well now you can just ask someone else to do it for you
+
+As ironic as this sounds, this plugin is not vibe coded. I don't use AI to write code for me.
+
+The use case for this plugin is questionable honestly since vimmers usually read docs and dive deep into the ecosystem
+Maybe for the devs who want a one time change but don't want to search the internet on how to do it
+
+I am not held accountable for the code that the AI gives.
+
+## Future
+I cannot promise that I will be working on this project full-time since this is literally just a pet project
+
+1. Maybe have a runtime path and add files and directories there so the AI code can persist.
+2. Crazy idea: vibe an entire config (bad idea)
+
+# Usage
+Currently only tested openrouter free API, since I don't have money to afford a real LLM API.
+```lua
+{
+    "KoolieAid/neovibe.nvim",
+    -- Defaults
+    opts = {
+        key = "",
+        model = "deepseek/deepseek-prover-v2:free",
+    }
+}
+```
