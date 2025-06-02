@@ -19,12 +19,19 @@ Do not explain your code in plaintext, only output in VALID lua code that uses t
 You are allowed to add comments to the code, but not in plaintext
 ]]
 
+-- Helper function
+-- @param payload: table - Main table of messages
+-- @param role: string - Role of the appeneded message
+-- @param message: string - Content of the appeneded message
 local function append_message(payload, role, message)
     table.insert(payload, {
         content = message,
         role = role,
     })
 end
+
+-- Initial system prompt
+append_message(memory, "system", system_prompt)
 
 local function process_response(raw_response)
 
@@ -67,7 +74,7 @@ local function do_raw_request(model, messages, key)
         url = "https://openrouter.ai/api/v1/chat/completions",
         headers = {
             ['Content-Type'] = "application/json",
-            Authorization = "Bearer " .. key,-- Give me a key chat
+            Authorization = "Bearer " .. key,
         },
         body = json.encode(body),
     })
@@ -78,16 +85,26 @@ local function do_raw_request(model, messages, key)
     return process_response(full_payload)
 end
 
-append_message(memory, "system", system_prompt)
-function api.request(model, prompt, context)
+function api.request(ctx, prompt)
     local req = {
-        func = nil,
+        func = nil, -- Will be nil if status not 200
+        status = nil, -- Error code; 200 is ok
+        error = nil, -- Table / string
     }
 
     append_message(memory, "user", prompt)
-    local fn = do_raw_request(nil, memory, context.key)
+    local fn = do_raw_request(nil, memory, ctx.key)
+
+    -- Maybe I should put it in raw request
+    -- And have it call a func in [models]
+    if not fn then
+        req.status = 1
+        req.error = "Unexpected error occurred"
+        return req
+    end
 
     req.func = fn
+    req.status = 200
     return req
 end
 

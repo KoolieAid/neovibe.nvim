@@ -1,20 +1,20 @@
 local api = require("neovibe.api")
-local models = require("neovibe.models")
-
--- Not used yet idk, maybe on refactor
-local model = models["deepseek"]
 
 local vibe = {
-    key = nil,
+    key = "",
+    temperature = 0.3,
+    model = "openrouter::deepseek/deepseek-prover-v2:free",
 }
 
 local function process(input)
     vim.cmd("redraw!")
-    local req = api.request("deepseek-chat", input, { key = vibe.key })
+    local req = api.request(vibe, input)
 
-    if not req.func then
+    if req.status ~= 200 then
+        vim.notify("Request failed: " .. req.error, vim.log.levels.ERROR)
         return
     end
+
     local status, err = pcall(req.func)
 
     if not status then
@@ -35,7 +35,14 @@ vim.api.nvim_create_user_command("Vibe", function(args)
 end, { nargs = "*" })
 
 function vibe.setup(opts)
+    if not opts.key then
+        vim.notify("API key was not provided", vim.log.levels.ERROR)
+    end
+
     vibe = opts
+
+    -- Might have to double check this
+    vibe.model = opts.model or vibe.model
 
 end
 
