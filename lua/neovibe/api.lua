@@ -2,7 +2,7 @@ local api = {}
 local http = require("plenary.curl")
 local json = vim.json
 
-local memory = {}
+local message_history = {}
 local system_prompt =
 [[
 You are an AI that is supposed to set, modify, and evaluate lua commands
@@ -19,6 +19,12 @@ Do not explain your code in plaintext, only output in VALID lua code that uses t
 You are allowed to add comments to the code, but not in plaintext
 ]]
 
+-- Initial system prompt
+table.insert(message_history, {
+    role = "system",
+    content = system_prompt
+})
+
 -- Helper function
 -- @param payload: table - Main table of messages
 -- @param role: string - Role of the appeneded message
@@ -29,9 +35,6 @@ local function append_message(payload, role, message)
         role = role,
     })
 end
-
--- Initial system prompt
-append_message(memory, "system", system_prompt)
 
 local function process_response(raw_response)
 
@@ -45,7 +48,7 @@ local function process_response(raw_response)
     end
 
     local response = raw_response.body.choices[1].message.content
-    append_message(memory, "assistant", response)
+    append_message(message_history, "assistant", response)
 
     local code_string = string.match(response, "```lua(.*)```")
 
@@ -69,8 +72,6 @@ local function do_raw_request(model, messages, key)
     }
 
     local full_payload = http.post({
-        -- Remove once done
-        -- dry_run = true,
         url = "https://openrouter.ai/api/v1/chat/completions",
         headers = {
             ['Content-Type'] = "application/json",
@@ -92,8 +93,8 @@ function api.request(ctx, prompt)
         error = nil, -- Table / string
     }
 
-    append_message(memory, "user", prompt)
-    local fn = do_raw_request(nil, memory, ctx.key)
+    append_message(message_history, "user", prompt)
+    local fn = do_raw_request(nil, message_history, ctx.key)
 
     -- Maybe I should put it in raw request
     -- And have it call a func in [models]
