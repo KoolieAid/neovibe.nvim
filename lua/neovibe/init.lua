@@ -7,7 +7,6 @@ local vibe = {
 }
 
 local function process(input)
-    vim.cmd("redraw!")
     local req = api.request(vibe, input)
 
     if req.status ~= 200 then
@@ -39,10 +38,15 @@ function vibe.setup(opts)
         vim.notify("API key was not provided", vim.log.levels.ERROR)
     end
 
-    vibe = opts
+    vibe.key = opts.key
 
-    -- Might have to double check this
-    vibe.model = opts.model or vibe.model
+    if opts.model then
+        vibe.model = opts.model
+    end
+
+    if not opts.temperature then
+        vibe.temperature = opts.temperature
+    end
 
 end
 

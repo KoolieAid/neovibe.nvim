@@ -1,21 +1,19 @@
--- funcs 
--- parse request -> a body for http.post
--- parse respone -> string: code / error
-
-
-
+local indexer = require("neovibe.common").separate
 
 local models = {}
 local meta = {}
 
 setmetatable(models, meta)
 
-function meta.__index()
+function meta.__index(self, index)
 
-end
+    local domain, sub = indexer(index, "^(.-)::(.*)$")
 
-function models.request()
+    if sub then
+        return require("neovibe.models." .. domain)[sub]
+    end
 
+    return require("neovibe.models." .. index)
 end
 
 return models
