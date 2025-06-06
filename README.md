@@ -16,6 +16,11 @@ Maybe for the devs who want a one time change but don't want to search the inter
 
 I am not held accountable for the code that the AI gives.
 
+# Models
+Right now, the available api is the openrouter version of deepseek prover v2. Why? cuz it's free
+Maybe if i get money i can implement more models such as the real deepseek api, openai, and gemini
+Or you can contribute your the api endpoints in the `models` folder
+
 ## Future
 I cannot promise that I will be working on this project full-time since this is literally just a pet project
 
@@ -30,7 +35,8 @@ Currently only tested openrouter free API, since I don't have money to afford a 
     -- Defaults
     opts = {
         key = "",
-        model = "deepseek/deepseek-prover-v2:free",
+        model = "openrouter::deepseek/deepseek-prover-v2:free",
+        temperature = 0.3,
     }
 }
 ```

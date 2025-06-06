@@ -13,7 +13,9 @@ function meta.__index(self, index)
         return require("neovibe.models." .. domain)[sub]
     end
 
-    return require("neovibe.models." .. index)
+    local llm, model = indexer(index, "^(.-)/(.*)$")
+
+    return require("neovibe.models." .. llm)[model]
 end
 
 return models
