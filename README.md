@@ -1,8 +1,6 @@
 ### I am not proud of this
 This is definitely my Frankenstein's monster
 
-This is still an early prototype and huge structural changes are gonna come. (I have plans)
-
 # Neovibe
 Plugin where you ask AI to change some settings and they do it for you
 
@@ -21,6 +19,9 @@ Right now, the available api is the openrouter version of deepseek prover v2. Wh
 Maybe if i get money i can implement more models such as the real deepseek api, openai, and gemini
 Or you can contribute your the api endpoints in the `models` folder
 
+- `openrouter::deepseek/*` Note: Only prover v2:free and deepseek-r1:free is tested
+- `openai/*` - Soon
+
 ## Future
 I cannot promise that I will be working on this project full-time since this is literally just a pet project
 
@@ -35,7 +36,7 @@ Currently only tested openrouter free API, since I don't have money to afford a 
     -- Defaults
     opts = {
         key = "",
-        model = "openrouter::deepseek/deepseek-prover-v2:free",
+        model = "openrouter::deepseek/deepseek-r1:free",
         temperature = 0.3,
     }
 }

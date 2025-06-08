@@ -49,7 +49,7 @@ function api.request(ctx, prompt)
 
         return {
             status = 1,
-            error = response
+            error = response.body
         }
     end
 

@@ -24,6 +24,7 @@ local function generate_module(version)
                     ['Content-Type'] = "application/json",
                     Authorization = "Bearer " .. ctx.key,
                 },
+                timeout = 20000,
                 body = json.encode(body),
             }
 
@@ -46,11 +47,14 @@ local function generate_module(version)
             local content = response.body.choices[1].message.content
             append(require("neovibe.api").history(), "assistant", content)
 
-
+            -- Some models really be stuborn and include this and some don't. I swear AI makes me mald
             local code_block = string.match(content, "```lua(.*)```")
+            -- So let's just risk it lmao
+            if not code_block then
+                code_block = content
+            end
 
             if not code_block then
-                print(response)
                 return nil, "Code block is nil. Generated content: " .. content
             end
 

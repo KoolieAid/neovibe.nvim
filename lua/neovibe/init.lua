@@ -3,7 +3,7 @@ local api = require("neovibe.api")
 local vibe = {
     key = "",
     temperature = 0.3,
-    model = "openrouter::deepseek/deepseek-prover-v2:free",
+    model = "openrouter::deepseek/deepseek-r1:free",
 }
 
 local function process(input)
