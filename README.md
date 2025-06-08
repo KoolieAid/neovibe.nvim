@@ -14,6 +14,10 @@ Maybe for the devs who want a one time change but don't want to search the inter
 
 I am not held accountable for the code that the AI gives.
 
+## Prerequisite
+1. `nvim-lua/plenary.nvim`
+2. LLM API Key
+
 # Models
 Right now, the available api is the openrouter version of deepseek prover v2. Why? cuz it's free
 Maybe if i get money i can implement more models such as the real deepseek api, openai, and gemini
@@ -33,6 +37,9 @@ Currently only tested openrouter free API, since I don't have money to afford a 
 ```lua
 {
     "KoolieAid/neovibe.nvim",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+    },
     -- Defaults
     opts = {
         key = "",
