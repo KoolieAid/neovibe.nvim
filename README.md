@@ -19,8 +19,8 @@ Right now, the available api is the openrouter version of deepseek prover v2. Wh
 Maybe if i get money i can implement more models such as the real deepseek api, openai, and gemini
 Or you can contribute your the api endpoints in the `models` folder
 
-- `openrouter::deepseek/*` Note: Only prover v2:free and deepseek-r1:free is tested
-- `openai/*` - Soon
+- `openrouter::deepseek/*` Note: Only prover v2:free and deepseek-r1:free are tested
+- `openai/*` - None of these are tested btw. I don't have a money to afford tokens to test it
 
 ## Future
 I cannot promise that I will be working on this project full-time since this is literally just a pet project
