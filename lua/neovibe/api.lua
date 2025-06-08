@@ -1,6 +1,5 @@
 local api = {}
 local http = require("plenary.curl")
-local json = vim.json
 local models = require("neovibe.models")
 local append_message = require("neovibe.common").append_message
 
@@ -36,6 +35,8 @@ table.insert(message_history, {
 function api.history()
     return message_history
 end
+
+api.history = message_history
 
 function api.request(ctx, prompt)
     append_message(message_history, "user", prompt)

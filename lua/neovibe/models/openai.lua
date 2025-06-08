@@ -33,7 +33,7 @@ local function generate_module(version)
             end
 
             local content = response.body.output[1].content[1].text
-            require("neovibe.common").append_message(require("neovibe.api").history, "assistant", content)
+            require("neovibe.common").append_message(require("neovibe.api").history(), "assistant", content)
 
             if not content then
                 return nil, "Content is nil, Generated content: " .. response
