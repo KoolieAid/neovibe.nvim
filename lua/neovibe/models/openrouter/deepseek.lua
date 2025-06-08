@@ -24,7 +24,6 @@ local function generate_module(version)
                     ['Content-Type'] = "application/json",
                     Authorization = "Bearer " .. ctx.key,
                 },
-                timeout = 20000,
                 body = json.encode(body),
             }
 

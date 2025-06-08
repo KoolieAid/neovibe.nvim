@@ -41,6 +41,7 @@ function api.request(ctx, prompt)
     append_message(message_history, "user", prompt)
 
     local request = models[ctx.model].parse_request(ctx, message_history)
+    request.timeout = 20000
     local status, response = pcall(http.post, request)
 
     -- Http -- Client errors
