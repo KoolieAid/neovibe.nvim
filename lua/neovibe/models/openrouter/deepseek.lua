@@ -12,7 +12,7 @@ local function generate_module(version)
         parse_request = function(ctx, message_history)
 
             local body = {
-                -- response_format = { type = 'json_object' },
+                response_format = { type = 'lua_code' },
                 model = "deepseek/" .. version,
                 messages = message_history,
                 temperature = ctx.temperature,

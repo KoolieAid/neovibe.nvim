@@ -32,11 +32,13 @@ table.insert(message_history, {
     content = system_prompt
 })
 
-function api.history()
-    return message_history
-end
-
 api.history = message_history
+
+setmetatable(message_history, {
+    __call = function (t)
+        return t
+    end
+})
 
 function api.request(ctx, prompt)
     append_message(message_history, "user", prompt)
