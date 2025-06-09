@@ -4,6 +4,7 @@ local vibe = {
     key = "",
     temperature = 0.3,
     model = "openrouter::deepseek/deepseek-r1:free",
+    timeout = 15000,
 }
 
 local function process(input)
@@ -48,6 +49,7 @@ function vibe.setup(opts)
         vibe.temperature = opts.temperature
     end
 
+    vibe.timeout = opts.timeout or 15000
 end
 
 return vibe

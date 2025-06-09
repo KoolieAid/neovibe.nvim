@@ -45,6 +45,7 @@ Currently only tested openrouter free API, since I don't have money to afford a 
         key = "",
         model = "openrouter::deepseek/deepseek-r1:free",
         temperature = 0.3,
+        timeout = 15000, -- Http request timeout: If the model can take long to answer, up the value
     }
 }
 ```
