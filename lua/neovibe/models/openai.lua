@@ -1,3 +1,4 @@
+local append_message = require("neovibe.common").append_message
 local json = vim.json
 local openai = {}
 local meta = {}
@@ -32,8 +33,9 @@ local function generate_module(version)
                 return nil, response.body.error.code .. ": " .. response.body.error.message
             end
 
+            -- Gang, im just assuming here lmao
             local content = response.body.output[1].content[1].text
-            require("neovibe.common").append_message(require("neovibe.api").history(), "assistant", content)
+            append_message(require("neovibe.api").history(), "assistant", content)
 
             if not content then
                 return nil, "Content is nil, Generated content: " .. response
